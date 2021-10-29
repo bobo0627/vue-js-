@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function getSum(arr) {
+			let sum = 0
+			for(var i = 0; i < arr.length; i++){
+				sum+= Number(arr[i])*1000
+			}
+			return sum
+		}
+		console.log(getSum([0.1,0.2])/1000)
+	</script>
+</body>
+</html>

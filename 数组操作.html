@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         *  
+         * 
+         * 
+        */
+
+            /**
+             *  
+             * shift() 删除原数组第一项，并返回删除元素的值，如数组为空返回 undefined
+             * 改变原数组长度
+            */
+            var arr1 = [1,2,3,4,5,6]
+            var arrShift = arr1.shift()
+            console.log(arr1,arrShift)// [2, 3, 4, 5, 6]   1 
+            /**
+             *  
+             * unshift() 将参数添加到原数组的开头，返回数组长度
+             * 改变原数组长度
+            */
+            var arr2 = [1,2,3,4,5,6]
+            var arrUnshift = arr2.unshift(-1,8)
+            console.log(arr2,arrUnshift)//[-1, 8, 1, 2, 3, 4, 5, 6]  8
+            /**
+             *  
+             * pop() 删除原数组最后一项，并返回删除元素的值，如数组为空返回 undefined
+             * 改变原数组长度
+            */
+           var arr3 = [1,2,3,4,5,6]
+           var arrPop = arr3.pop()
+           console.log(arr3,arrPop)//[1, 2, 3, 4, 5]  6
+           /**
+             *  
+             * push() 将参数添加到数组末尾，并返回数组的长度
+             * 改变原数组长度
+            */
+           var arr4 = [1,2,3,4,5,6]
+           var arrPush = arr4.push(9,10)
+           console.log(arr4,arrPush)//[1, 2, 3, 4, 5, 6, 9, 10]  8
+
+           /**
+             *  
+             * concat() ，将参数添加到原数组中 返回一个新的数组，
+             * 原数组长度不变
+            */
+           var arr5 = [1,2,3,4,5,6]
+           var arr5Concat = arr5.concat([11,22,33])
+           console.log(arr5,arr5Concat)//[1, 2, 3, 4, 5, 6]   [1, 2, 3, 4, 5, 6, 11, 22, 33]
+           /**
+             *  
+             * splice(startIndex,deleteCount,val1,val2) ,从事startIndex位置删除deleteCount个,并从该位置 加入 val1 val2
+             * 返回一个数组，为删除的数据
+             * 改变原数组长度
+            */
+           var arr6 = [1,2,3,4,5,6]
+           var arr6Splice = arr6.splice(2,2,20,30)
+           console.log(arr6,arr6Splice)//[1, 2, 20, 30, 5, 6]   [3, 4]
+           /**
+             *  
+             * reverse() 数组反转  反序
+             * 改变原数组
+            */
+           var arr7 = [1,2,3,4,5,6]
+           var arr7Reverse = arr7.reverse()
+           console.log(arr7,arr7Reverse)//[6, 5, 4, 3, 2, 1]   [6, 5, 4, 3, 2, 1]
+           /**
+             *  
+             * sort() 数组排序，可根据参数排序
+             * 改变原数组
+            */
+           var arr8 = [1,5,10,4,2,8]
+           var arr8Sort = arr8.sort()
+           console.log(arr8,arr8Sort)//[1, 10, 2, 4, 5, 8]   [1, 10, 2, 4, 5, 8]
+           var arr8Sortd = arr8.sort((a,b)=>{//降序
+                return b - a
+           })
+           console.log(arr8,arr8Sortd)//[10, 8, 5, 4, 2, 1]  [10, 8, 5, 4, 2, 1]
+           var arr8Sorts = arr8.sort((a,b)=>{
+               return a - b
+           })
+           console.log(arr8,arr8Sorts)//[1, 2, 4, 5, 8, 10]   [1, 2, 4, 5, 8, 10]
+           /**
+             *  
+             * slice(start,end)  返回 从指定坐标 到结束坐标直接的 数据组成的数组 
+             * 不改变原数组
+            */
+           var arr9 = [1,5,10,4,2,8]
+           var arr9Slice = arr9.slice(2,4)
+           console.log(arr9,arr9Slice)//[1, 5, 10, 4, 2, 8]   [10, 4]
+           /**
+             *  
+             * join() 将数组以参数作为分隔符 转换为字符串，默认"" 则为 , 逗号分隔
+             * 不改变原数组
+            */
+           var arr10 = [1,5,10,4,2,8]
+           var arr10Join = arr10.join("|")
+           console.log(arr10,arr10Join) //[1, 5, 10, 4, 2, 8]   "1|5|10|4|2|8"
+    </script>
+</body>
+</html>

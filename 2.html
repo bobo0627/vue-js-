@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+
+<body>
+    <script src="./lib/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <div id="app">
+        <el-input v-model="input" placeholder="请输入内容" @keyup.enter.native="submit"></el-input>
+        <el-card class="box-card" v-show="this.alleventArr.length>0&&this.isShow==1">
+            <div v-for="(item,index) in alleventArr" :key="index" class="textss item">
+                <strong class="stro" @click="handleClickCancle(index)">X</strong>
+                <el-checkbox v-model="item.flag" @change="handleChange"><span
+                        :style="[item.flag==true ? {'text-decoration':'line-through'} : '',{'color':'#000'}]">{{ item.input }}</span>
+                </el-checkbox>
+            </div>
+            <p>剩余未完成<span :style="{'color':'#f00'}">{{this.unselectedArr.length}}</span></p>
+        </el-card>
+        <el-card class="box-card" v-show="this.isShow==2">
+            <div v-for="(item,index) in selectedArr" :key="index" class="textss item">
+                <strong class="stro" @click="handleClickCancle(index,item)">X</strong>
+                <el-checkbox v-model="item.flag" @change="handleChange"><span
+                        :style="[item.flag==true ? {'text-decoration':'line-through'} : '',{'color':'#000'}]">{{ item.input }}</span>
+                </el-checkbox>
+            </div>
+            <p>剩余未完成<span :style="{'color':'#f00'}">{{this.unselectedArr.length}}</span></p>
+        </el-card>
+        <el-card class="box-card" v-show="this.isShow==3">
+            <div v-for="(item,index) in unselectedArr" :key="index" class="textss item">
+                <strong class="stro" @click="handleClickCancle(index,item)">X</strong>
+                <el-checkbox v-model="item.flag" @change="handleChange"><span
+                        :style="[{'color':'#000'}]">{{ item.input }}</span></el-checkbox>
+            </div>
+            <p>剩余未完成<span :style="{'color':'#f00'}">{{this.unselectedArr.length}}</span></p>
+        </el-card>
+        <div class="btnbox" v-show="this.alleventArr.length>0">
+            <el-button type="primary" @click="handleClickbtn1">全选</el-button>
+            <el-button type="success" @click="handleClickbtn2">全部</el-button>
+            <el-button type="warning" @click="handleClickbtn3">已完成</el-button>
+            <el-button type="info" @click="handleClickbtn4">未完成</el-button>
+            <el-button type="danger" class="el-icon-delete" @click="handleClickbtn5">删除已完成</el-button>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            data1: 0,
+            input: "",
+            alleventArr: [],
+            allcheckList: [],
+            isSelectAll: false,
+            isShow: 1,
+        },
+        mounted() {
+            //  alert('hello')
+        },
+        computed: { //计算属性  this.alleventArr 如果变化  就会执行函数
+            selectedArr() {//已完成 数组
+                let arr = []
+                this.alleventArr.forEach(item => {
+                    item.flag == true ? arr.push(item) : ''
+                })
+                console.log(arr)
+                return arr
+            },
+            unselectedArr() {//未完成 数组
+                let arr = []
+                this.alleventArr.forEach(item => {
+                    item.flag == false ? arr.push(item) : ''
+                })
+                console.log(arr)
+                return arr
+            },
+            inputValueArr(){//input arr
+                let arr=[]
+                this.alleventArr.forEach(item => {
+                    arr.push(item.input)
+                })
+                return arr
+            },
+        },
+        methods: {
+            submit() {
+                console.log('加入')
+                if (this.input != '') {
+                    //  保证input框  任务不重复 数据唯一
+                    if(this.inputValueArr.indexOf(this.input)==-1){
+                        this.alleventArr.push({
+                            'input': this.input,
+                            'flag': false
+                        })
+                    }else{
+                        this.input == ''
+                    }
+                }
+                console.log(this.alleventArr)
+                this.input = ''
+            },
+            handleClickCancle(index, item) { //删除
+                if (this.isShow == 2 || this.isShow == 3) { //已完成 未完成 情况下点击删除
+                    this.alleventArr.forEach((its, inds) => {
+                        if (its.input == item.input) {
+                            this.alleventArr.splice(inds, 1)
+                        }
+                    })
+                } else {
+                    this.alleventArr.splice(index, 1)
+                }
+            },
+            handleClickbtn1() { //全选
+                let arrlist = []
+                if (this.isSelectAll) { //取消全选
+                    for (var i = 0; i < this.alleventArr.length; i++) {
+                        this.alleventArr[i].flag = false
+                    }
+                    this.isSelectAll = false
+                } else { //全选
+                    for (var i = 0; i < this.alleventArr.length; i++) {
+                        this.alleventArr[i].flag = true
+                    }
+                    this.isSelectAll = true
+                }
+                console.log(this.checkList)
+                this.isShow = 1
+            },
+            handleClickbtn2() { //全部
+                this.isShow = 1
+
+            },
+            handleClickbtn3() { //已完成
+                this.isShow = 2
+                console.log(this.selectedArr)
+            },
+            handleClickbtn4() { //未完成
+                this.isShow = 3
+                console.log(this.unselectedArr)
+            },
+            handleClickbtn5() { //删除已完成
+                this.isShow = 1
+                let arr = []
+                this.alleventArr.forEach(item => {
+                    if (item.flag == false) {
+                        arr.push(item)
+                    }
+                })
+                this.alleventArr = arr
+            },
+            handleChange() {
+
+            }
+        },
+    })
+</script>
+<style>
+    .el-card {
+        width: 500px
+    }
+
+    .textss {
+        width: 500px;
+        height: 40px;
+        line-height: 40px;
+        position: relative;
+    }
+
+    .textss:hover .stro {
+        display: block
+    }
+
+    .stro {
+        position: absolute;
+        /* top:12px; */
+        right: 100px;
+        cursor: pointer;
+        display: none
+    }
+
+    .btnbox {
+        width: 500px;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .el-input{
+        width: 500px;
+    }
+    #app{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-top:200px;
+    }
+</style>
+
+</html>

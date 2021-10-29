@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!--  -->
+    <h1 id="value1"></h1>
+    <input type="text" id="text1" onkeydown="handleClick()">
+    <hr>
+    <!-- vue -->
+        <div id='app'>
+            <h1>{{text2}}</h1>
+            <input type="text" v-model='text2'>
+            <div class="box" :class="flage ? 'box1' : ''" @click="handleClickBox">
+            </div>
+            <ul>
+                <li v-for="(item,index) in arr1" :key='index'>
+                    <p>{{item.name}}</p>
+                    <p>{{item.age}}</p>
+                </li>
+            </ul>
+            <button @click="handleClickBtn">点击</button>
+            <div class="box" v-if='flage1'>
+
+            </div>
+        </div>
+        <hr>
+        
+</body>
+<script src="./lib//vue.js"></script>
+<script>
+    var ovalue1=document.getElementById('value1')
+    var otext1=document.getElementById('text1')
+    function handleClick(){
+        ovalue1.innerHTML=otext1.value
+    }
+    //vue 
+    var aap=new Vue({
+        el:'#app',
+        data:{
+            obj:{
+                a:1,
+            },
+            text2:'',
+            flage:false,
+            arr1:[
+                {'name':'小明','age':'22'}
+                ,{'name':'小红','age':'23'}
+            ],
+            flage1:true,
+
+        },
+        beforeCreate() {
+            console.log('beforeCreate')
+        },
+        created() {
+            //console.log(this.obj)
+            console.log('created')
+        },
+        beforeMount() {
+            console.log('beforeMount')
+        },
+        mounted() {
+            console.log('mounted')
+        },
+        methods: {
+            handleClickBox(){
+                this.flage=!this.flage
+                console.log('aaa')
+                var days=["25", "24", "23", "22", "26"]
+                for(let i=1;i<=31;i++){
+                    for(let j=0; j<days.length;j++){
+                        if(days[j]==i){
+                            console.log(days[j])
+                        }else{
+                            console.log('null')
+                            
+                        }
+                    }
+                }
+            },
+            handleClickBtn(){
+                this.flage1=!this.flage1
+            }
+        },
+        beforeUpdate() {
+            console.log('beforeUpdate')
+        },
+        updated() {
+            console.log('updated')
+        },
+        beforeDestroy() {
+            console.log('beforeDestroy')
+        },
+        destroyed() {
+            console.log('destroyed')
+            record.dataList.forEach(item=>{
+                if(item.createTime==data){
+                    return 1 //对
+                }else{
+                    return 0 //错
+                }
+            })
+        },
+    })
+</script>
+<style>
+    .box{
+        width: 200px;
+        height: 200px;
+        background: #f00;
+    }
+    .box1{
+        width: 200px;
+        height: 200px;
+        background: #0f0;
+    }
+
+</style>
+</html>

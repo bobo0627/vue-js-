@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+        <script src="//imgcache.qq.com/open/qcloud/video/vcplayer/TcPlayer-2.3.2.js" charset="utf-8"></script>
+    <button onclick="handleClickRemove()">移除</button>
+    <button onclick="handleClickOpen()">打开视频</button>
+    <input type="text" id="playUrl">
+    <div id="id_test_video" style="width:100%; height:auto;"></div>
+    
+</body>
+<script>
+    function handleClickRemove(){
+        console.log('remove')
+        var removeId = document.getElementById("id_test_video")
+        removeId.parentNode.removeChild(removeId);
+    }
+    function handleClickOpen(){
+        var url = document.getElementById('playUrl').value
+        console.log(url)
+        createPalyer(url)
+    }
+    function createPalyer(url){
+        var player = new TcPlayer('id_test_video', {
+                //"m3u8": "http://2157.liveplay.myqcloud.com/2157_358535a.m3u8", //请替换成实际可用的播放地址
+                //"flv":"https://ynstream02.shipinxitong.com:8454/53070000441328000028/livestream.flv",
+                "flv":url,
+                "autoplay" : true,      //iOS 下 safari 浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
+                "poster" : "http://www.test.com/myimage.jpg",
+                "width" :  '480',//视频的显示宽度，请尽量使用视频分辨率宽度
+                "height" : '320',//视频的显示高度，请尽量使用视频分辨率高度
+                "flash":false,
+                "h5_flv":true,
+                //"x5_player":true,
+                });
+    }
+    
+</script>
+</html>
